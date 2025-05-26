@@ -5,20 +5,84 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>我們結婚了！</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;700&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      font-family: 'Noto Serif TC', serif;
+      background: radial-gradient(ellipse at center, #0b1d37 0%, #000 100%);
+      color: #f7f4e9;
+      overflow-x: hidden;
+    }
+
+    /* 星空動畫 */
+    .stars {
+      background: url('https://cdn.jsdelivr.net/gh/JulianLai/stars-bg@main/stars.png') repeat;
+      animation: starScroll 60s linear infinite;
+    }
+
+    @keyframes starScroll {
+      0% { background-position: 0 0; }
+      100% { background-position: -10000px 5000px; }
+    }
+
+    .glow-text {
+      text-shadow: 0 0 8px rgba(255, 255, 255, 0.6);
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+  </style>
 </head>
-<body class="bg-pink-50 text-gray-800 font-sans">
+<body class="stars">
   <div class="max-w-xl mx-auto p-6 text-center">
-    <h1 class="text-3xl md:text-5xl font-bold mb-4">我們結婚了！</h1>
-    <p class="text-lg mb-6">Howard & Emma</p>
-    <img src="your-photo.jpg" alt="wedding photo" class="rounded-2xl shadow-lg mb-6 w-full" />
-    <div class="text-left bg-white p-4 rounded-xl shadow">
-      <p><strong>日期：</strong>2025年11月22日</p>
-      <p><strong>時間：</strong>中午12:00</p>
-      <p><strong>地點：</strong><a class="text-blue-500 underline" href="https://goo.gl/maps/..." target="_blank">晶宴會館 台北館</a></p>
+    <h1 class="text-4xl md:text-5xl font-bold mb-4 text-yellow-300 glow-text">我們結婚了！</h1>
+    <p class="text-lg mb-6 text-yellow-100">H & M</p>
+
+    <!-- 星光照片 -->
+    <img src="your-photo.jpg" alt="wedding photo" class="rounded-full border-4 border-yellow-100 shadow-xl mb-6 w-60 h-60 mx-auto object-cover" />
+
+    <!-- 倒數區 -->
+    <div class="bg-white bg-opacity-10 p-4 rounded-xl shadow mb-6">
+      <p class="text-xl font-semibold text-yellow-200 mb-2">婚禮倒數</p>
+      <p id="countdown" class="text-2xl font-bold text-white">載入中...</p>
     </div>
-    <a href="https://forms.gle/your-rsvp-form" target="_blank" class="mt-6 inline-block bg-pink-500 hover:bg-pink-600 text-white py-2 px-4 rounded-xl">
+
+    <!-- 資訊區 -->
+    <div class="bg-white bg-opacity-10 p-4 rounded-xl shadow mb-6 text-left">
+      <p><strong>日期：</strong>2025年8月2日</p>
+      <p><strong>時間：</strong>晚上18:30</p>
+      <p><strong>地點：</strong><a class="text-yellow-300" href="https://goo.gl/maps/..." target="_blank">君品酒店</a></p>
+    </div>
+
+    <!-- RSVP -->
+    <a href="https://docs.google.com/forms/d/e/1FAIpQLSevxIfCWev4-Sw_--El0-sGWv5K4USDfCrfI_zQUjMiLEY--w/viewform?usp=header" target="_blank"
+       class="mt-4 inline-block bg-yellow-400 hover:bg-yellow-500 text-black py-2 px-6 rounded-xl shadow-lg transition">
       點我回覆出席
     </a>
   </div>
+
+  <!-- 倒數 JS -->
+  <script>
+    const countdown = document.getElementById("countdown");
+    const targetDate = new Date("2025-08-02T18:30:00");
+
+    function updateCountdown() {
+      const now = new Date();
+      const diff = targetDate - now;
+      if (diff <= 0) {
+        countdown.innerText = "今天就是大日子！";
+        return;
+      }
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((diff / (1000 * 60)) % 60);
+      const seconds = Math.floor((diff / 1000) % 60);
+      countdown.innerText = `${days} 天 ${hours} 小時 ${minutes} 分 ${seconds} 秒`;
+    }
+
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+  </script>
 </body>
 </html>
